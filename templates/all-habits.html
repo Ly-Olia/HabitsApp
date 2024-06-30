@@ -1,0 +1,44 @@
+{% include 'layout.html' %}
+
+<div class="container">
+    <div class="card text-center">
+        <div class="card-header">
+            Build Habits
+        </div>
+        <div class="card-body">
+            <h5 class="card-tittle">List of your Habits!</h5>
+            <p class="card-text">Reach your goals</p>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Info</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for habit in habits %}
+
+                        <tr class="pointer">
+                            <td>{{loop.index}}</td>
+                            <td>{{habit.title}}</td>
+                            <td>
+                                <button onclick="window.location.href='edit-habit/{{habit.id}}'"
+                                        type="button" class="btn btn-info">Edit</button>
+                                <button onclick="window.location.href='/habits/delete/{{habit.id}}'"
+                                        type="button" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="add-habit">Add a new Habit!</a>
+
+        </div>
+    </div>
+</div>

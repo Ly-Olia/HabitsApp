@@ -1,0 +1,78 @@
+{% include 'layout.html' %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+             Let's edit your habit!
+        </div>
+        <div class="card-body">
+            <form method="POST" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title"
+                           value="{{habit.title}}" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control"rows="3" name="description"
+                              required>{{habit.description}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select class="form-control" name="priority">
+                        <option {% if habit.priority == 1 %} selected="selected" {% endif %}>1</option>
+                        <option {% if habit.priority == 2 %} selected="selected" {% endif %}>2</option>
+                        <option {% if habit.priority == 3 %} selected="selected" {% endif %}>3</option>
+                        <option {% if habit.priority == 4 %} selected="selected" {% endif %}>4</option>
+                        <option {% if habit.priority == 5 %} selected="selected" {% endif %}>5</option>
+                    </select>
+                </div>
+
+               <div class="form-group">
+            <label>Days of Week</label><br>
+            {% set days_checked = habit.days_of_week if habit.days_of_week else [] %}
+            {% set days_map = {
+                0: "monday",
+                1: "tuesday",
+                2: "wednesday",
+                3: "thursday",
+                4: "friday",
+                5: "saturday",
+                6: "sunday"
+            } %}
+            {% for day in range(7) %}
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="{{ days_map[day] }}" name="days" value="{{ day }}" {% if day in days_checked %} checked {% endif %}>
+                    <label class="form-check-label" for="{{ days_map[day] }}">{{ days_map[day]|capitalize }}</label>
+                </div>
+            {% endfor %}
+                   <div id="validationMessage" style="color: red;"></div>
+        </div>
+
+                <button type="submit" class="btn btn-primary">Edit your habit</button>
+                <button onclick="window.location.href='/habits/delete/{{habit.id}}'"
+                        type="button" class="btn btn-danger">Delete</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+     function validateForm() {
+        var checkboxes = document.getElementsByName("days");
+        var isChecked = false;
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                isChecked = true;
+                break;
+            }
+        }
+        if (!isChecked) {
+            document.getElementById("validationMessage").innerText = "Please choose at least one day of the week.";
+            return false; // Prevent form submission
+        }
+        return true; // Allow form submission
+    }
+</script>
