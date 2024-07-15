@@ -8,7 +8,8 @@ from sqlalchemy.orm import sessionmaker
 from models import Users
 from main import app
 from routers.auth import get_db, create_access_token, authenticate_user
-from test.app_test import TestingSessionLocal, client, override_get_db
+from test.app_habit_test import override_get_db, TestingSessionLocal, client
+
 
 # Override the get_db dependency to use the test database session
 app.dependency_overrides[get_db] = override_get_db
@@ -20,10 +21,12 @@ def create_test_user():
     Fixture to create and yield a test user, and clean up after the test.
     """
     user = Users(
-        email='example@gmail.com', username='example',
-        first_name='example', last_name='example',
-        hashed_password='$2b$12$KXQKk5Y3/MQksOHXbEdrO.tiDQyZDHe9FeP.D6CM7IMmCck30h7NK',  # 'password'
-        is_active=True
+        email="example@gmail.com",
+        username="example",
+        first_name="example",
+        last_name="example",
+        hashed_password="$2b$12$KXQKk5Y3/MQksOHXbEdrO.tiDQyZDHe9FeP.D6CM7IMmCck30h7NK",  # 'password'
+        is_active=True,
     )
     with TestingSessionLocal() as db:
         db.add(user)
@@ -40,14 +43,17 @@ def test_register_user_creates_user_successfully():
     """
     Test the user registration endpoint to ensure a new user is created successfully.
     """
-    response = client.post("/auth/register", data={
-        "email": "newuser@example.com",
-        "username": "newuser",
-        "firstname": "New",
-        "lastname": "User",
-        "password": "newpassword",
-        "password2": "newpassword"
-    })
+    response = client.post(
+        "/auth/register",
+        data={
+            "email": "newuser@example.com",
+            "username": "newuser",
+            "firstname": "New",
+            "lastname": "User",
+            "password": "newpassword",
+            "password2": "newpassword",
+        },
+    )
     assert response.status_code == status.HTTP_200_OK
 
     # Verify that the user was created in the database
