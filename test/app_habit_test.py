@@ -12,7 +12,7 @@ from main import app
 from routers.habits import get_db
 
 # Define the test database URL
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:Vkkh1112!@localhost/testHabitdb'
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:Vkkh1112!@localhost/testHabitdb"
 
 # Create a new SQLAlchemy engine instance
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
@@ -38,15 +38,16 @@ def override_get_current_user(user_id: int):
     """
     Dependency override for getting a current test user.
     """
+
     def _override_get_current_user():
         return {
-            'id': user_id,
-            'username': 'example',
-            'email': 'example@gmail.com',
-            'first_name': 'example',
-            'last_name': 'example',
-            'hashed_password': '12345',
-            'is_active': True
+            "id": user_id,
+            "username": "example",
+            "email": "example@gmail.com",
+            "first_name": "example",
+            "last_name": "example",
+            "hashed_password": "12345",
+            "is_active": True,
         }
 
     return _override_get_current_user
@@ -63,9 +64,12 @@ def create_test_user():
     Fixture to create and yield a test user, and clean up after the test.
     """
     user = Users(
-        email='example@gmail.com', username='example',
-        first_name='example', last_name='example',
-        hashed_password='12345', is_active=True
+        email="example@gmail.com",
+        username="example",
+        first_name="example",
+        last_name="example",
+        hashed_password="12345",
+        is_active=True,
     )
     with TestingSessionLocal() as db:
         db.add(user)
@@ -85,8 +89,8 @@ def create_test_habit(create_test_user: Users):
     """
     db = TestingSessionLocal()
     habit = Habits(
-        title='Habit1',
-        description='description1',
+        title="Habit1",
+        description="description1",
         priority=5,
         owner_id=create_test_user.id,
         creation_date=datetime.now().date(),
@@ -120,7 +124,9 @@ def create_test_completed_habit(create_test_user: Users, create_test_habit: Habi
 
     # Clean up: delete the completed habit
     with engine.connect() as connection:
-        connection.execute(text(f"DELETE FROM complete WHERE id = {completed_habit.id};"))
+        connection.execute(
+            text(f"DELETE FROM complete WHERE id = {completed_habit.id};")
+        )
         connection.commit()
     db.close()
 
@@ -139,12 +145,15 @@ def test_create_habit(create_test_user: Users):
     """
     Test to create a new habit.
     """
-    response = client.post("/habits/add-habit", data={
-        "title": "New Habit",
-        "description": "New Description",
-        "priority": 4,
-        "days": [0, 1, 2, 3, 4, 5, 6]
-    })
+    response = client.post(
+        "/habits/add-habit",
+        data={
+            "title": "New Habit",
+            "description": "New Description",
+            "priority": 4,
+            "days": [0, 1, 2, 3, 4, 5, 6],
+        },
+    )
     assert response.status_code == status.HTTP_200_OK
 
     # Verify the habit was created in the database
@@ -169,12 +178,15 @@ def test_edit_habit(create_test_user: Users, create_test_habit: Habits):
     """
     Test to edit an existing habit.
     """
-    response = client.post(f"/habits/edit-habit/{create_test_habit.id}", data={
-        "title": "Updated Habit",
-        "description": "Updated Description",
-        "priority": 3,
-        "days": [1, 2, 3]
-    })
+    response = client.post(
+        f"/habits/edit-habit/{create_test_habit.id}",
+        data={
+            "title": "Updated Habit",
+            "description": "Updated Description",
+            "priority": 3,
+            "days": [1, 2, 3],
+        },
+    )
     assert response.status_code == status.HTTP_200_OK
 
     # Verify the habit was updated in the database
@@ -218,7 +230,9 @@ def test_complete_habit(create_test_user: Users, create_test_habit: Habits):
 
     # Verify the habit completion was recorded in the database
     db = TestingSessionLocal()
-    completed = db.query(Complete).filter(Complete.habit_id == create_test_habit.id).first()
+    completed = (
+        db.query(Complete).filter(Complete.habit_id == create_test_habit.id).first()
+    )
     assert completed is not None
     assert completed.habit_id == create_test_habit.id
     assert completed.complete_date == datetime.now().date()
@@ -226,7 +240,9 @@ def test_complete_habit(create_test_user: Users, create_test_habit: Habits):
     db.close()
 
 
-def test_undo_completion(create_test_user: Users, create_test_completed_habit: Complete):
+def test_undo_completion(
+    create_test_user: Users, create_test_completed_habit: Complete
+):
     """
     Test to undo a habit completion.
     """
@@ -235,8 +251,12 @@ def test_undo_completion(create_test_user: Users, create_test_completed_habit: C
 
     # Verify the habit completion was undone in the database
     db = TestingSessionLocal()
-    completed = db.query(Complete).filter(Complete.habit_id == create_test_completed_habit.habit_id)\
-        .filter(Complete.complete_date==datetime.now().date()).first()
+    completed = (
+        db.query(Complete)
+        .filter(Complete.habit_id == create_test_completed_habit.habit_id)
+        .filter(Complete.complete_date == datetime.now().date())
+        .first()
+    )
     assert completed is None
     db.close()
 
