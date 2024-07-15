@@ -15,9 +15,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 router = APIRouter(
-    prefix="/users",
-    tags=["users"],
-    responses={404: {"description": "Not Found"}}
+    prefix="/users", tags=["users"], responses={404: {"description": "Not Found"}}
 )
 
 models.Base.metadata.create_all(bind=engine)
@@ -47,14 +45,20 @@ async def edit_user_view(request: Request):
     if user is None:
         return RedirectResponse(url="/auth", status_code=status.HTTP_302_FOUND)
 
-    return templates.TemplateResponse("change-password.html", {"request": request, "user": user})
+    return templates.TemplateResponse(
+        "change-password.html", {"request": request, "user": user}
+    )
 
 
 # Endpoint to handle the password change form submission
 @router.post("/change-password", response_class=HTMLResponse)
-async def user_password_change(request: Request, old_password: str = Form(...),
-                               password: str = Form(...),
-                               password2: str = Form(...), db: Session = Depends(get_db)):
+async def user_password_change(
+    request: Request,
+    old_password: str = Form(...),
+    password: str = Form(...),
+    password2: str = Form(...),
+    db: Session = Depends(get_db),
+):
     user = await get_current_user(request)
     if user is None:
         return RedirectResponse(url="/auth", status_code=status.HTTP_302_FOUND)
@@ -62,10 +66,14 @@ async def user_password_change(request: Request, old_password: str = Form(...),
     user_data = db.query(models.Users).filter(models.Users.id == user.get("id")).first()
     msg = "Invalid password"
     if user_data is not None:
-        if password == password2 and verify_password(old_password, user_data.hashed_password):
+        if password == password2 and verify_password(
+            old_password, user_data.hashed_password
+        ):
             user_data.hashed_password = get_password_hash(password)
             db.add(user_data)
             db.commit()
-            msg = 'Password updated'
+            msg = "Password updated"
 
-    return templates.TemplateResponse("change-password.html", {"request": request, "user": user, "msg": msg})
+    return templates.TemplateResponse(
+        "change-password.html", {"request": request, "user": user, "msg": msg}
+    )

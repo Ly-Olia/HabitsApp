@@ -25,7 +25,7 @@ async def root():
 # Define the health check endpoint
 @app.get("/healthy")
 def health_check():
-    return {'status': 'Healthy'}
+    return {"status": "Healthy"}
 
 
 # Include the routers for authentication, habits, and users
