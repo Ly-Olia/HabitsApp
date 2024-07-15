@@ -1,10 +1,11 @@
 from fastapi import FastAPI
+from starlette import status
+from starlette.responses import RedirectResponse
+from starlette.staticfiles import StaticFiles
+
 import models
 from database import engine
 from routers import auth, habits, users
-from starlette.staticfiles import StaticFiles
-from starlette.responses import RedirectResponse
-from starlette import status
 
 # Create an instance of the FastAPI application
 app = FastAPI()

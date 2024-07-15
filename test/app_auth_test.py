@@ -1,15 +1,12 @@
-from datetime import datetime, timedelta
+from test.app_habit_test import TestingSessionLocal, client, override_get_db
+
 import pytest
 from fastapi import status
-from fastapi.testclient import TestClient
-from sqlalchemy import create_engine, text
-from sqlalchemy.orm import sessionmaker
 
-from models import Users
 from main import app
 from routers.auth import get_db, create_access_token, authenticate_user
 from test.app_habit_test import override_get_db, TestingSessionLocal, client
-
+from models import Users
 
 # Override the get_db dependency to use the test database session
 app.dependency_overrides[get_db] = override_get_db
