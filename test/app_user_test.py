@@ -1,14 +1,13 @@
 import sys
 from datetime import timedelta
+from test.app_habit_test import TestingSessionLocal, client, override_get_db
 
-from routers.auth import get_password_hash, create_access_token, verify_password
+from routers.auth import create_access_token, get_password_hash, verify_password
 from routers.users import get_db
-from test.app_habit_test import override_get_db, TestingSessionLocal, client
 
 sys.path.append("..")
 
 import pytest
-
 from starlette import status
 
 from main import app

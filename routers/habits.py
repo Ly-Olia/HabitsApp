@@ -5,16 +5,19 @@ from sqlalchemy import desc
 
 sys.path.append("..")
 
-from starlette import status
-from starlette.responses import RedirectResponse
-from fastapi import Depends, APIRouter, Request, Form
-import models
-from database import engine, SessionLocal
-from sqlalchemy.orm import Session
-from .auth import get_current_user
+from datetime import datetime
+
+from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from datetime import datetime
+from sqlalchemy.orm import Session
+from starlette import status
+from starlette.responses import RedirectResponse
+
+import models
+from database import SessionLocal, engine
+
+from .auth import get_current_user
 
 router = APIRouter(
     prefix="/habits", tags=["habits"], responses={404: {"description": "Not found"}}

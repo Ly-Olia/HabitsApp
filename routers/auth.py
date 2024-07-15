@@ -6,18 +6,19 @@ from starlette.responses import RedirectResponse
 # Adding the parent directory to the sys.path to allow imports from sibling modules
 sys.path.append("..")
 
-from fastapi import Depends, HTTPException, status, APIRouter, Request, Response, Form
+from datetime import datetime, timedelta
 from typing import Optional
-import models
+
+from fastapi import APIRouter, Depends, Form, HTTPException, Request, Response, status
+from fastapi.responses import HTMLResponse
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.templating import Jinja2Templates
+from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
-from database import SessionLocal, engine
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from datetime import datetime, timedelta
 
-from jose import jwt, JWTError
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
+import models
+from database import SessionLocal, engine
 
 # Secret key and algorithm used for JWT encoding/decoding
 SECRET_KEY = "KlgH6AzYDeZeGwD288to79I3vTHT8wp7"

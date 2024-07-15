@@ -1,8 +1,9 @@
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-from alembic import context
+
+from sqlalchemy import engine_from_config, pool
+
 import models
+from alembic import context
 
 # Set the target_metadata variable to the metadata object associated with your database schema
 target_metadata = models.Base.metadata

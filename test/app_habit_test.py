@@ -1,14 +1,15 @@
-from datetime import datetime, timedelta
+from datetime import datetime
+
 import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
-from models import Habits, Users, Complete
-from routers.auth import get_current_user, create_access_token
 from database import Base
 from main import app
+from models import Complete, Habits, Users
+from routers.auth import get_current_user
 from routers.habits import get_db
 
 # Define the test database URL

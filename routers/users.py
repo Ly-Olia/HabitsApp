@@ -2,17 +2,18 @@ import sys
 
 sys.path.append("..")
 
-from starlette import status
-from starlette.responses import RedirectResponse
-from fastapi import Depends, APIRouter, Request, Form
-import models
-from database import engine, SessionLocal
-from sqlalchemy.orm import Session
-from pydantic import BaseModel
-from .auth import get_current_user, verify_password, get_password_hash
-
+from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
+from starlette import status
+from starlette.responses import RedirectResponse
+
+import models
+from database import SessionLocal, engine
+
+from .auth import get_current_user, get_password_hash, verify_password
 
 router = APIRouter(
     prefix="/users", tags=["users"], responses={404: {"description": "Not Found"}}
