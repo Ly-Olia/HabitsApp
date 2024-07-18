@@ -4,9 +4,8 @@ import pytest
 from fastapi import status
 
 from main import app
-from routers.auth import get_db, create_access_token, authenticate_user
-from test.app_habit_test import override_get_db, TestingSessionLocal, client
 from models import Users
+from routers.auth import create_access_token, get_db
 
 # Override the get_db dependency to use the test database session
 app.dependency_overrides[get_db] = override_get_db
