@@ -35,23 +35,23 @@ This is a Habit Tracker App developed to help users keep track of their habits a
    `git clone https://github.com/Ly-Olia/HabitsApp.git`
    `cd HabitsApp`
 
-2. **Create and activate a virtual environment:
+2. **Create and activate a virtual environment**:
    `python -m venv venv`
    `source venv/bin/activate`  # On Windows use `venv\Scripts\activate`
 
-3. **Install the dependencies:
+3. **Install the dependencies**:
    `pip install -r requirements.txt`
 
-4. **Set up the database:
+4. **Set up the database**:
 
 - Make sure PostgreSQL is running.
 - Create a new database for the app.
-- Configure the database URL in the .env file.
+- Configure the database URL in the `.env` file.
 
-5. **Apply migrations:
+5. **Apply migrations**:
    `alembic upgrade head`
 
-6. **Run the application:
+6. **Run the application**:
    `uvicorn main:app --reload`
 
 ### Usage
@@ -95,24 +95,27 @@ This is a Habit Tracker App developed to help users keep track of their habits a
 
 The app uses pytest for testing. To run the tests, follow these steps:
 
-1. **Install pytest:
+1. **Install pytest**:
    `pip install pytest`
 
-2. Run the tests:
+2. **Run the tests**:
    `pytest`
 
 ### Contributing
-1. Fork the repository.
+1. **Fork the repository**.
    
-2. Create a new branch (git checkout -b feature/your-feature-name).
+2. **Create a new branch**:
+   `git checkout -b feature/your-feature-name`
    
-3. Make your changes.
+3. **Make your changes**.
    
-4. Commit your changes (git commit -m 'Add some feature').
+4. **Commit your changes**:
+   `git commit -m 'Add some feature'`
    
-5. Push to the branch (git push origin feature/your-feature-name).
+5. **Push to the branch**:
+   `git push origin feature/your-feature-name`
    
-6. Open a Pull Request.
+6. **Open a Pull Request**.
 
 
 
