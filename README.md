@@ -35,14 +35,14 @@ This is a Habit Tracker App developed to help users keep track of their habits a
    `git clone https://github.com/Ly-Olia/HabitsApp.git`
    `cd HabitsApp`
 
-2. **Create and activate a virtual environment**:
+3. **Create and activate a virtual environment**:
    `python -m venv venv`
    `source venv/bin/activate`  # On Windows use `venv\Scripts\activate`
 
-3. **Install the dependencies**:
+4. **Install the dependencies**:
    `pip install -r requirements.txt`
 
-4. **Set up the database**:
+5. **Set up the database**:
 
 - Make sure PostgreSQL is running.
 - Create a new database for the app.
