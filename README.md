@@ -56,10 +56,9 @@ This is a Habit Tracker App developed to help users keep track of their habits a
 
 ## Usage
 
- - Open your browser and navigate to
-   `http://127.0.0.1:8000` to access the app.
- - Use the provided API documentation at
-   `http://127.0.0.1:8000/docs` for interacting with the API.
+ - The app provides an interactive API documentation interface at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+ - You can also view the raw OpenAPI documentation at [http://127.0.0.1:8000/openapi.json](http://127.0.0.1:8000/openapi.json).
+
 
 ## API Endpoints
 
