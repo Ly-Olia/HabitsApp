@@ -54,14 +54,14 @@ This is a Habit Tracker App developed to help users keep track of their habits a
 6. **Run the application**:
    `uvicorn main:app --reload`
 
-### Usage
+## Usage
 
  - Open your browser and navigate to
    `http://127.0.0.1:8000` to access the app.
  - Use the provided API documentation at
    `http://127.0.0.1:8000/docs` for interacting with the API.
 
-### API Endpoints
+## API Endpoints
 
 ### Authentication
 
@@ -91,7 +91,7 @@ This is a Habit Tracker App developed to help users keep track of their habits a
  - `GET /users/change-password`: Render the form to change user password.
  - `POST /users/change-password`: Handle the password change form submission.
 
-### Testing
+## Testing
 
 The app uses pytest for testing. To run the tests, follow these steps:
 
@@ -101,7 +101,7 @@ The app uses pytest for testing. To run the tests, follow these steps:
 2. **Run the tests**:
    `pytest`
 
-### Contributing
+## Contributing
 1. **Fork the repository**.
    
 2. **Create a new branch**:
@@ -117,6 +117,27 @@ The app uses pytest for testing. To run the tests, follow these steps:
    
 6. **Open a Pull Request**.
 
+## Project Structure
 
+- **`main.py`**: Entry point for the FastAPI application.
+- **`database.py`**: Contains database connection and setup.
+- **`models.py`**: Contains SQLAlchemy models.
+- **`alembic/`**: Contains Alembic migration scripts.
+- **`routers/`**: Contains route handlers for different API endpoints.
+- **`static/`**: Contains static files like CSS and JavaScript.
+- **`templates/`**: Contains HTML templates for the web interface.
+- **`tests/`**: Contains test cases and test configuration.
 
+## Configuration
 
+- **`.env`**: Contains environment variables such as `DATABASE_URL`.
+- **`config.py`** (if applicable): Configuration settings.
+
+## Environment Variables
+
+- `DATABASE_URL`: The URL for the PostgreSQL database.
+- `SECRET_KEY`: The secret key for JWT encoding/decoding.
+
+## License
+
+- This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
