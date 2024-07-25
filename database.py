@@ -2,7 +2,7 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:Vkkh1112!@localhost/HabitTrackerdb"
+SQLALCHEMY_DATABASE_URL = "postgresql://admin@localhost/HabitTrackerdb"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
